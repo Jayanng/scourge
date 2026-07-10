@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #070f0b;
+  --panel: #0f1f16;
+  --border: #1a3d2a;
+  --text: #e8f5e9;
+  --muted: #86a894;
+  --accent: #4ade80;
+  --usdc: #2775ca;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+@layer utilities {
+  .panel {
+    @apply rounded-xl border border-pitch-700/40 bg-pitch-900/80 backdrop-blur;
+  }
+  .text-muted {
+    color: var(--muted);
+  }
+}

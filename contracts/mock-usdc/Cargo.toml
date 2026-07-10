@@ -1,0 +1,17 @@
+[package]
+name = "kickoff-mock-usdc"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+cosmwasm-std = { version = "=2.1.4", features = ["cosmwasm_1_2", "cosmwasm_1_3", "cosmwasm_1_4"] }
+cosmwasm-schema = "=2.1.4"
+cw-storage-plus = "2.0"
+cw2 = "2.0"
+cw20 = "2.0"
+schemars = "0.8"
+serde = { version = "1", features = ["derive"] }
+thiserror = "1"

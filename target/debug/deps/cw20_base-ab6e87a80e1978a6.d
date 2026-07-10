@@ -1,0 +1,15 @@
+/workspaces/scourge/target/debug/deps/libcw20_base-ab6e87a80e1978a6.so: /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/lib.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/allowances.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/contract.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/enumerable.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/error.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/msg.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/state.rs
+
+/workspaces/scourge/target/debug/deps/libcw20_base-ab6e87a80e1978a6.rlib: /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/lib.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/allowances.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/contract.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/enumerable.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/error.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/msg.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/state.rs
+
+/workspaces/scourge/target/debug/deps/cw20_base-ab6e87a80e1978a6.d: /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/lib.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/allowances.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/contract.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/enumerable.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/error.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/msg.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/state.rs
+
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/lib.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/allowances.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/contract.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/enumerable.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/error.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/msg.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cw20-base-2.0.0/src/state.rs:
+
+# env-dep:CARGO_PKG_VERSION=2.0.0

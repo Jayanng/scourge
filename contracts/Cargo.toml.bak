@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+members = ["market", "factory"]
+
+[profile.release]
+opt-level = 3
+debug = false
+overflow-checks = true
+lto = true
+codegen-units = 1
+panic = "abort"
+incremental = false

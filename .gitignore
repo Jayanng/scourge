@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build
+dist/
+.next/
+out/
+artifacts/
+*.tsbuildinfo
+
+# Rust / CosmWasm
+contracts/**/target/
+contracts/**/artifacts/
+**/*.wasm
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs / coverage
+*.log
+coverage/
+.turbo/
+
+# Docker volumes
+infra/data/
+
+# Misc
+.vercel
+*.pem

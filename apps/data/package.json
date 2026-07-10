@@ -1,0 +1,32 @@
+{
+  "name": "@kickoff/data",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "replay": "REPLAY_MODE=1 tsx src/index.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src --ext .ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@kickoff/shared-types": "workspace:*",
+    "dotenv": "^16.6.1",
+    "drizzle-orm": "^0.45.2",
+    "ioredis": "^5.11.1",
+    "pg": "^8.22.0",
+    "pino": "^9.14.0",
+    "undici": "^8.7.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.20.0",
+    "drizzle-kit": "^0.31.10",
+    "tsx": "^4.23.0",
+    "typescript": "^5.9.3"
+  }
+}

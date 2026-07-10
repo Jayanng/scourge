@@ -1,0 +1,34 @@
+{
+  "name": "kickoff-protocol",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Autonomous agent swarm for World Cup micro-markets — native to Injective",
+  "license": "MIT",
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\""
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@typescript-eslint/eslint-plugin": "^8.63.0",
+    "@typescript-eslint/parser": "^8.63.0",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.0",
+    "turbo": "^2.1.0",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@injectivelabs/networks": "^1.20.23",
+    "@injectivelabs/sdk-ts": "^1.20.23",
+    "@injectivelabs/utils": "^1.20.23",
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  }
+}

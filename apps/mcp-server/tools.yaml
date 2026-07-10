@@ -1,0 +1,49 @@
+# Injective MCP Server — tool schema (Section 8)
+# Implementation: Prompt 3
+tools:
+  - name: create_market
+    description: Spawn a new binary market via the factory contract.
+    input_schema:
+      type: object
+      required: [question, closes_at, match_id, template]
+      properties:
+        question: { type: string }
+        closes_at: { type: integer, description: unix seconds }
+        match_id: { type: string }
+        template: { type: string }
+
+  - name: place_bet
+    input_schema:
+      type: object
+      required: [market, side, amount]
+      properties:
+        market: { type: string }
+        side: { type: string, enum: [yes, no] }
+        amount: { type: string }
+
+  - name: submit_observation
+    description: Called by an Oracle. Posts a signed outcome observation to the Resolver.
+    input_schema:
+      type: object
+      required: [market, outcome, evidence_url, signature]
+      properties:
+        market: { type: string }
+        outcome: { type: string, enum: [yes, no, void] }
+        evidence_url: { type: string }
+        signature: { type: string }
+
+  - name: settle_market
+    description: Called by Resolver once 2-of-3 oracle consensus is reached.
+    input_schema:
+      type: object
+      required: [market, outcome]
+      properties:
+        market: { type: string }
+        outcome: { type: string, enum: [yes, no, void] }
+
+  - name: claim
+    input_schema:
+      type: object
+      required: [market]
+      properties:
+        market: { type: string }

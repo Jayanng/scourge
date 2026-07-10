@@ -1,0 +1,1 @@
+/workspaces/scourge/target/wasm32-unknown-unknown/release/kickoff_market.wasm: /workspaces/scourge/contracts/market/src/contract.rs /workspaces/scourge/contracts/market/src/error.rs /workspaces/scourge/contracts/market/src/lib.rs /workspaces/scourge/contracts/market/src/msg.rs /workspaces/scourge/contracts/market/src/state.rs

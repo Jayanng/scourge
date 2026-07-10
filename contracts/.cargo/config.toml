@@ -1,0 +1,10 @@
+[alias]
+wasm = "build --release --lib --target wasm32-unknown-unknown"
+
+[target.wasm32-unknown-unknown]
+rustflags = [
+  "-C", "link-arg=-s",
+  "-C", "link-arg=--allow-undefined",
+  "-C", "target-feature=-bulk-memory,-sign-ext,-mutable-globals",
+  "-C", "target-cpu=mvp",
+]

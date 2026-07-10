@@ -1,0 +1,7 @@
+node_modules
+dist
+.next
+artifacts
+target
+pnpm-lock.yaml
+*.wasm

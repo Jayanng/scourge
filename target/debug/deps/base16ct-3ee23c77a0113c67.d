@@ -1,0 +1,12 @@
+/workspaces/scourge/target/debug/deps/libbase16ct-3ee23c77a0113c67.rmeta: /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/lib.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/lower.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/mixed.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/upper.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/display.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/error.rs
+
+/workspaces/scourge/target/debug/deps/libbase16ct-3ee23c77a0113c67.rlib: /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/lib.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/lower.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/mixed.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/upper.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/display.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/error.rs
+
+/workspaces/scourge/target/debug/deps/base16ct-3ee23c77a0113c67.d: /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/lib.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/lower.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/mixed.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/upper.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/display.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/error.rs
+
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/lib.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/lower.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/mixed.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/upper.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/display.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/base16ct-0.2.0/src/error.rs:

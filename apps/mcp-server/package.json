@@ -1,0 +1,30 @@
+{
+  "name": "@kickoff/mcp-server",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "smoke": "MCP_TRANSPORT=smoke tsx src/index.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint src --ext .ts",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@injectivelabs/networks": "^1.20.23",
+    "@injectivelabs/sdk-ts": "^1.20.23",
+    "@kickoff/inj-client": "workspace:*",
+    "@kickoff/shared-types": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "dotenv": "^16.4.0",
+    "pino": "^9.4.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
+  }
+}

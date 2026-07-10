@@ -1,0 +1,30 @@
+[package]
+name = "kickoff-factory"
+version = "0.1.0"
+authors = ["Kickoff Protocol"]
+edition = "2021"
+description = "Market factory CosmWasm contract for Kickoff Protocol"
+license = "MIT"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[features]
+library = []
+
+[dependencies]
+cosmwasm-std = { version = "=2.1.4", features = ["cosmwasm_1_2", "cosmwasm_1_3", "cosmwasm_1_4"] }
+cosmwasm-schema = "=2.1.4"
+cw-storage-plus = "2.0"
+cw2 = "2.0"
+cw-utils = "2.0"
+schemars = "0.8"
+serde = { version = "1", features = ["derive"] }
+thiserror = "1"
+sha3 = "0.10"
+
+[dev-dependencies]
+cw-multi-test = { version = "2.0", features = ["cosmwasm_1_2", "cosmwasm_1_3", "cosmwasm_1_4"] }
+cw20-base = "2.0"
+kickoff-market = { path = "../market", features = ["library"] }
+cw20 = "2.0"

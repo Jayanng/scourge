@@ -1,0 +1,14 @@
+/workspaces/scourge/target/wasm32-unknown-unknown/release/deps/libserde-c1b31478915e7299.rmeta: /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/lib.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/integer128.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/mod.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/de.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/ser.rs /workspaces/scourge/target/wasm32-unknown-unknown/release/build/serde-2fd689f9bbb345df/out/private.rs
+
+/workspaces/scourge/target/wasm32-unknown-unknown/release/deps/libserde-c1b31478915e7299.rlib: /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/lib.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/integer128.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/mod.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/de.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/ser.rs /workspaces/scourge/target/wasm32-unknown-unknown/release/build/serde-2fd689f9bbb345df/out/private.rs
+
+/workspaces/scourge/target/wasm32-unknown-unknown/release/deps/serde-c1b31478915e7299.d: /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/lib.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/integer128.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/mod.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/de.rs /home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/ser.rs /workspaces/scourge/target/wasm32-unknown-unknown/release/build/serde-2fd689f9bbb345df/out/private.rs
+
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/lib.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/integer128.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/mod.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/de.rs:
+/home/codespace/.cargo/registry/src/index.crates.io-6f17d22bba15001f/serde-1.0.228/src/private/ser.rs:
+/workspaces/scourge/target/wasm32-unknown-unknown/release/build/serde-2fd689f9bbb345df/out/private.rs:
+
+# env-dep:OUT_DIR=/workspaces/scourge/target/wasm32-unknown-unknown/release/build/serde-2fd689f9bbb345df/out

@@ -1,0 +1,18 @@
+{
+  "match_id": "replay-euros-2024-final",
+  "home_team": "Spain",
+  "away_team": "England",
+  "events": [
+    { "type": "kickoff", "minute": 0, "delay_ms": 500, "extra": { "half": 1 } },
+    { "type": "corner", "minute": 12, "team_id": "spain", "player": "Yamal", "delay_ms": 2000 },
+    { "type": "yellow_card", "minute": 18, "team_id": "england", "player": "Rice", "delay_ms": 1800 },
+    { "type": "shot_on_target", "minute": 25, "team_id": "spain", "player": "Morata", "delay_ms": 1600 },
+    { "type": "corner", "minute": 34, "team_id": "spain", "player": "Pedri", "delay_ms": 1500 },
+    { "type": "corner", "minute": 35, "team_id": "spain", "player": "Yamal", "delay_ms": 1200 },
+    { "type": "goal", "minute": 47, "team_id": "spain", "player": "Williams", "delay_ms": 2000 },
+    { "type": "substitution", "minute": 61, "team_id": "england", "player": "Palmer", "delay_ms": 1500 },
+    { "type": "goal", "minute": 73, "team_id": "england", "player": "Palmer", "delay_ms": 2000 },
+    { "type": "goal", "minute": 86, "team_id": "spain", "player": "Oyarzabal", "delay_ms": 2200 },
+    { "type": "full_time", "minute": 90, "delay_ms": 1000, "extra": { "score": "2-1" } }
+  ]
+}
