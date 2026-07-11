@@ -82,7 +82,7 @@ async function main() {
     },
   });
 
-  sub.on('pmessage', (_pattern, channel, message) => {
+  sub.on('pmessage', (_pattern: string, channel: string, message: string) => {
     void handleMessage(channel, message).catch((e) =>
       log.error({ err: String(e) }, 'handle message failed'),
     );
