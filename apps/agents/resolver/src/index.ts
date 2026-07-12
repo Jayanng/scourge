@@ -39,10 +39,13 @@ const ORACLE_REWARD_PORT_BASE = Number(process.env.ORACLE_REWARD_PORT_BASE ?? 41
 const NO_DB = process.env.RESOLVER_NO_DB === '1';
 const MOCK_CHAIN = process.env.RESOLVER_MOCK_CHAIN === '1';
 
+const X402_MODE = process.env.X402_MODE === 'live' ? 'live' : 'mock';
 const x402 = createX402Client({
-  mode: process.env.X402_MODE === 'live' ? 'live' : 'mock',
+  mode: X402_MODE,
   facilitatorUrl: process.env.X402_FACILITATOR_URL,
   payTo: process.env.X402_PAY_TO,
+  privateKey: X402_MODE === 'live' ? process.env.X402_PRIVATE_KEY : undefined,
+  network: process.env.X402_NETWORK ?? 'base-sepolia',
 });
 
 const consensus = new Consensus(ORACLE_SECRET);
@@ -121,7 +124,6 @@ async function main() {
     );
 
     // Reward accurate oracles via x402 (agent-to-agent USDC economy).
-    // Each oracle exposes its own /reward sink; pay that, not our own /observe.
     for (const o of bundle.observations) {
       if (o.outcome !== consensusOutcome) continue;
       const rewardUrl = `http://localhost:${ORACLE_REWARD_PORT_BASE + o.instance}/reward`;

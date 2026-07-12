@@ -21,7 +21,8 @@
     "dotenv": "^16.4.0",
     "ioredis": "^5.11.1",
     "pg": "^8.22.0",
-    "pino": "^9.4.0"
+    "pino": "^9.4.0",
+    "x402-express": "^1.2.0"
   },
   "devDependencies": {
     "@types/pg": "^8.20.0",

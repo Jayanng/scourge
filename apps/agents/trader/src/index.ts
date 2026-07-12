@@ -40,10 +40,13 @@ const BET_AMOUNT = Number(process.env.TRADER_BET_AMOUNT ?? 0); // 0 = use person
 const MAX_BETS = Number(process.env.TRADER_MAX_BETS ?? 0);
 const SIGNAL_PROVIDER_URL = process.env.SIGNAL_PROVIDER_URL ?? 'http://localhost:4002/signals';
 
+const X402_MODE = process.env.X402_MODE === 'live' ? 'live' : 'mock';
 const x402 = createX402Client({
-  mode: process.env.X402_MODE === 'live' ? 'live' : 'mock',
+  mode: X402_MODE,
   facilitatorUrl: process.env.X402_FACILITATOR_URL,
   payTo: process.env.X402_PAY_TO,
+  privateKey: X402_MODE === 'live' ? process.env.X402_PRIVATE_KEY : undefined,
+  network: process.env.X402_NETWORK ?? 'base-sepolia',
 });
 
 function sleep(ms: number): Promise<void> {
@@ -125,7 +128,7 @@ async function main() {
     const meta = (msg.payload?.meta as Record<string, unknown>) ?? {};
     const consensus = consensusByMarket.get(market);
 
-    // Consume the signal feed via x402 before acting (pays the external provider).
+    // Consume the signal feed via x402 (pays the external provider).
     const pay = await x402.pay(SIGNAL_PROVIDER_URL, '100');
 
     const decision = decideBet(PERSONA, { template, meta, consensus });

@@ -19,7 +19,9 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@kickoff/shared-types": "workspace:*"
+    "@kickoff/shared-types": "workspace:*",
+    "x402": "^1.2.0",
+    "x402-fetch": "^1.2.0"
   },
   "devDependencies": {
     "typescript": "^5.5.4"

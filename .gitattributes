@@ -1,0 +1,20 @@
+# Force correct language detection on GitHub
+.env.example linguist-language=DotEnv
+.nvmrc        linguist-detectable=false
+LICENSE       linguist-detectable=false
+
+# TypeScript
+*.ts  linguist-language=TypeScript
+*.tsx linguist-language=TypeScript
+
+# Rust
+*.rs  linguist-language=Rust
+
+# Shell
+*.sh  linguist-language=Shell
+
+# JavaScript
+*.mjs linguist-language=JavaScript
+*.cjs linguist-language=JavaScript
+
+# Everything else is detected correctly by default

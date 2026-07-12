@@ -53,10 +53,13 @@ const FAULT = (process.env.FAULT_INJECT ?? '').trim().toLowerCase();
 const FAULT_LAG_MS = Number(process.env.ORACLE_FAULT_LAG_MS ?? 3000);
 const NO_DB = process.env.ORACLE_NO_DB === '1';
 
+const X402_MODE = process.env.X402_MODE === 'live' ? 'live' : 'mock';
 const x402 = createX402Client({
-  mode: process.env.X402_MODE === 'live' ? 'live' : 'mock',
+  mode: X402_MODE,
   facilitatorUrl: process.env.X402_FACILITATOR_URL,
   payTo: process.env.X402_PAY_TO,
+  privateKey: X402_MODE === 'live' ? process.env.X402_PRIVATE_KEY : undefined,
+  network: process.env.X402_NETWORK ?? 'base-sepolia',
 });
 
 function sleep(ms: number): Promise<void> {
