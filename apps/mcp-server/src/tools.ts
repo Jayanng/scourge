@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import type { InjClient } from '@kickoff/inj-client';
 
+type MaybeClient = InjClient | null;
+
 export const CreateMarketInput = z.object({
   question: z.string().min(1),
   closes_at: z.number().int().positive(),
@@ -8,29 +10,40 @@ export const CreateMarketInput = z.object({
   template: z.string().min(1),
 });
 
+const MARKET_ADDR = z
+  .string()
+  .regex(/^(inj1[a-z0-9]+|mock_[a-zA-Z0-9_]+)$/);
+
 export const PlaceBetInput = z.object({
-  market: z.string().regex(/^inj1[a-z0-9]+$/),
+  market: MARKET_ADDR,
   side: z.enum(['yes', 'no']),
   amount: z.string().regex(/^\d+$/),
 });
 
 export const SubmitObservationInput = z.object({
-  market: z.string().regex(/^inj1[a-z0-9]+$/),
+  market: MARKET_ADDR,
   outcome: z.enum(['yes', 'no', 'void']),
   evidence_url: z.string().url().or(z.string().min(1)),
   signature: z.string().min(1),
 });
 
 export const SettleMarketInput = z.object({
-  market: z.string().regex(/^inj1[a-z0-9]+$/),
+  market: MARKET_ADDR,
   outcome: z.enum(['yes', 'no', 'void']),
 });
 
 export const ClaimInput = z.object({
-  market: z.string().regex(/^inj1[a-z0-9]+$/),
+  market: MARKET_ADDR,
 });
 
-/** In-memory observation buffer until Resolver agent (Prompt 7) owns consensus. */
+/**
+ * In-memory observation buffer — ILLUSTRATIVE ONLY.
+ *
+ * The authoritative 2-of-3 consensus + on-chain settle lives in the Resolver
+ * agent (apps/agents/resolver). Oracles POST directly to the Resolver's
+ * /observe endpoint, so this buffer is not part of the live settlement path;
+ * it exists to let `submit_observation` self-report a demo tally.
+ */
 const observations = new Map<
   string,
   Array<{
@@ -46,9 +59,10 @@ export function getObservations(market: string) {
 }
 
 export async function handleCreateMarket(
-  client: InjClient,
+  client: MaybeClient,
   raw: unknown,
 ): Promise<Record<string, unknown>> {
+  if (!client) return { ok: true, dryRun: true, note: 'no chain client' };
   const input = CreateMarketInput.parse(raw);
   const res = await client.createMarket(input.question, input.closes_at, {
     matchId: input.match_id,
@@ -66,16 +80,17 @@ export async function handleCreateMarket(
 }
 
 export async function handlePlaceBet(
-  client: InjClient,
+  client: MaybeClient,
   raw: unknown,
 ): Promise<Record<string, unknown>> {
+  if (!client) return { ok: true, dryRun: true, note: 'no chain client' };
   const input = PlaceBetInput.parse(raw);
   const res = await client.placeBet(input.market, input.side, input.amount);
   return { ok: true, tool: 'place_bet', ...res, ...input };
 }
 
 export async function handleSubmitObservation(
-  _client: InjClient,
+  _client: MaybeClient,
   raw: unknown,
 ): Promise<Record<string, unknown>> {
   const input = SubmitObservationInput.parse(raw);
@@ -116,18 +131,20 @@ export async function handleSubmitObservation(
 }
 
 export async function handleSettleMarket(
-  client: InjClient,
+  client: MaybeClient,
   raw: unknown,
 ): Promise<Record<string, unknown>> {
+  if (!client) return { ok: true, dryRun: true, note: 'no chain client' };
   const input = SettleMarketInput.parse(raw);
   const res = await client.settleMarket(input.market, input.outcome);
   return { ok: true, tool: 'settle_market', ...res, ...input };
 }
 
 export async function handleClaim(
-  client: InjClient,
+  client: MaybeClient,
   raw: unknown,
 ): Promise<Record<string, unknown>> {
+  if (!client) return { ok: true, dryRun: true, note: 'no chain client' };
   const input = ClaimInput.parse(raw);
   const res = await client.claim(input.market);
   return { ok: true, tool: 'claim', ...res, market: input.market };

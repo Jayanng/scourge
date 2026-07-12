@@ -13,6 +13,7 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@kickoff/agent-db": "workspace:*",
     "@kickoff/inj-client": "workspace:*",
     "@kickoff/shared-types": "workspace:*",
     "dotenv": "^16.4.0",

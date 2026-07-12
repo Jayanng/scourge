@@ -1,7 +1,47 @@
 /**
  * Deterministic market templates — NO LLM in the hot path (build plan §Prompt 5).
  */
+import { readFileSync } from 'node:fs';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { MarketTemplate } from '@kickoff/shared-types';
+
+/**
+ * Loads home/away team ids per match from the replay file (lowercased to match
+ * the `team_id` keys the oracle accumulates from events). Demo-only convenience;
+ * in live mode the bookmaker would look these up from the data service's
+ * `matches` table instead.
+ */
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const replayPath = resolve(__dirname, '../../../data/data/replays/euros-2024-final.json');
+
+function loadTeamMap(): Map<string, { home: string; away: string }> {
+  const map = new Map<string, { home: string; away: string }>();
+  try {
+    const raw = JSON.parse(readFileSync(replayPath, 'utf8')) as {
+      match_id?: string;
+      home_team?: string;
+      away_team?: string;
+    };
+    if (raw.match_id) {
+      map.set(raw.match_id, {
+        home: String(raw.home_team ?? 'home').toLowerCase(),
+        away: String(raw.away_team ?? 'away').toLowerCase(),
+      });
+    }
+  } catch {
+    /* not in replay mode — teams resolved at runtime if available */
+  }
+  return map;
+}
+
+const TEAM_MAP = loadTeamMap();
+
+export function teamIdsForMatch(matchId: string): { home?: string; away?: string } {
+  const t = TEAM_MAP.get(matchId);
+  if (t) return { home: t.home, away: t.away };
+  return {};
+}
 
 export interface MatchEvent {
   type: string;
@@ -82,12 +122,13 @@ export function evaluateTemplates(ctx: TemplateContext): SpawnCandidate[] {
 
   // 1) match_winner — once at kickoff
   if (t === 'kickoff' || t === 'start') {
+    const { home, away } = teamIdsForMatch(matchId);
     push({
       template: 'match_winner',
       question: `Match ${matchId}: will the home team win?`,
       closesAt: nowSec + 90 * 60,
       key: `${matchId}:match_winner`,
-      meta: { reason: 'kickoff' },
+      meta: { reason: 'kickoff', home_team_id: home, away_team_id: away },
     });
   }
 
@@ -100,7 +141,7 @@ export function evaluateTemplates(ctx: TemplateContext): SpawnCandidate[] {
       question: `Match ${matchId}: will there be a goal within the next ${windowMin} minutes (after min ${minute})?`,
       closesAt: nowSec + windowMin * 60,
       key,
-      meta: { from_minute: minute, window_min: windowMin },
+      meta: { from_minute: minute, window_min: windowMin, closes_at: nowSec + windowMin * 60 },
     });
   }
 
@@ -118,7 +159,7 @@ export function evaluateTemplates(ctx: TemplateContext): SpawnCandidate[] {
       question: `Match ${matchId}: corner kick between minute ${start} and ${end}?`,
       closesAt: nowSec + Math.max(60, (end - minute + 1) * 60),
       key,
-      meta: { start, end, impossible_demo: start === 34 },
+      meta: { start, end, impossible_demo: start === 34, closes_at: nowSec + Math.max(60, (end - minute + 1) * 60) },
     });
   }
 
@@ -132,7 +173,7 @@ export function evaluateTemplates(ctx: TemplateContext): SpawnCandidate[] {
       question: `Match ${matchId}: will ${player} finish over ${line}.5 shots on target?`,
       closesAt: nowSec + 45 * 60,
       key,
-      meta: { player, line },
+      meta: { player, line, closes_at: nowSec + 45 * 60 },
     });
   }
 
@@ -148,7 +189,7 @@ export function evaluateTemplates(ctx: TemplateContext): SpawnCandidate[] {
       question: `Match ${matchId}: first yellow card before minute ${before}?`,
       closesAt: nowSec + before * 60,
       key,
-      meta: { before_minute: before },
+      meta: { before_minute: before, closes_at: nowSec + before * 60 },
     });
   }
 

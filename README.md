@@ -61,7 +61,8 @@ kickoff-protocol/
 │   └── data/                # match feed + Redis
 ├── contracts/
 │   ├── market/              # CosmWasm binary market
-│   └── factory/             # CosmWasm factory
+│   ├── factory/             # CosmWasm factory
+│   └── mock-usdc/           # CW20-like USDC for demo
 ├── packages/
 │   ├── shared-types/
 │   ├── x402-client/
@@ -76,7 +77,7 @@ kickoff-protocol/
 - **Node.js** 20.x LTS
 - **pnpm** 9.x
 - **Docker** + Compose (Redis / Postgres)
-- **Rust** 1.79+ + `wasm32-unknown-unknown` (for contracts)
+- **Rust** 1.81+ + `wasm32-unknown-unknown` (for contracts)
 - Optional: `injectived` 1.13+ for testnet deploy
 
 ## Quick start
@@ -108,7 +109,7 @@ pnpm --filter @kickoff/data dev
 | TypeScript | 5.5.x |
 | Turbo | 2.x |
 | Next.js | 14.2.x |
-| cosmwasm-std | 2.0 |
+| cosmwasm-std | 2.1.4 |
 
 ## Status
 
@@ -118,16 +119,19 @@ pnpm --filter @kickoff/data dev
 | 2 | CosmWasm market + factory + tests + deploy scripts | ✅ |
 | 3 | MCP server tools | ✅ |
 | 4 | Data ingester + REPLAY_MODE | ✅ |
-| 5–8 | Bookmaker, Oracle×3, Resolver/x402, Traders | pending |
-| 9 | Frontend polish + CCTP onboard | pending |
-| 10 | Demo replay script | pending |
+| 5 | Bookmaker agent | ✅ |
+| 6 | Oracle×3 agents | ✅ |
+| 7 | Resolver + x402 2-of-3 consensus | ✅ |
+| 8 | Trader×2 agents | ✅ |
+| 9 | Frontend polish + CCTP onboard | ✅ (CCTP stub) |
+| 10 | Demo replay script | ✅ |
 
 ### Contracts + MCP quick check
 
 ```bash
 source "$HOME/.cargo/env"
-cd contracts && cargo test          # multi-tests
-../scripts/build-wasm.sh           # → artifacts/*.wasm (optimizer)
+cargo test                                # multi-tests (repo-root Cargo workspace)
+./scripts/build-wasm.sh                   # → artifacts/*.wasm (optimizer)
 pnpm --filter @kickoff/mcp-server smoke   # live testnet e2e via MCP tools
 
 # Data layer (Prompt 4)

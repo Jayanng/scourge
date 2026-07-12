@@ -125,6 +125,11 @@ fn create_market_via_instantiate2_and_settle() {
     )
     .unwrap();
 
+    // Advance past the market's close time before settling (TooEarly guard).
+    app.update_block(|b| {
+        b.time = cosmwasm_std::Timestamp::from_seconds(CLOSES_AT + 1);
+    });
+
     app.execute_contract(
         resolver,
         market.clone(),
@@ -198,10 +203,4 @@ fn rejects_past_closes_at() {
         err.contains("closes_at") || err.contains("InvalidClosesAt") || err.contains("future"),
         "unexpected: {err}"
     );
-}
-
-// silence unused import warning if Addr not used directly in asserts
-#[allow(dead_code)]
-fn _addr() -> Addr {
-    Addr::unchecked("x")
 }

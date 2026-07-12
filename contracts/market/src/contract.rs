@@ -135,6 +135,10 @@ fn exec_settle(
     if existing.is_some() {
         return Err(ContractError::AlreadySettled {});
     }
+    // Do not freeze betting / settle before the market has closed.
+    if _env.block.time.seconds() < config.closes_at {
+        return Err(ContractError::TooEarly {});
+    }
 
     OUTCOME.save(deps.storage, &Some(outcome.clone()))?;
 

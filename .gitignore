@@ -12,6 +12,8 @@ artifacts/
 # Rust / CosmWasm
 contracts/**/target/
 contracts/**/artifacts/
+target/
+artifacts/
 **/*.wasm
 
 # Env

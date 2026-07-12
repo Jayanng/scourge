@@ -1,10 +1,11 @@
+/**
+ * Bookmaker Postgres persistence — extends shared @kickoff/agent-db helpers
+ * with bookmaker-specific `markets` table and `insertMarket`.
+ */
 import pg from 'pg';
+import { createPool, insertAgentAction as sharedInsertAction } from '@kickoff/agent-db';
 
-const { Pool } = pg;
-
-export function createPool(databaseUrl: string) {
-  return new Pool({ connectionString: databaseUrl });
-}
+export { createPool };
 
 export async function ensureTables(pool: pg.Pool): Promise<void> {
   // Idempotent — data service may already have created these
@@ -58,6 +59,10 @@ export async function insertMarket(
   return res.rows[0].id as number;
 }
 
+/**
+ * Bookmaker-specific wrapper that always records the agent as 'bookmaker'
+ * (the shared insertAgentAction expects an explicit agent parameter).
+ */
 export async function insertAgentAction(
   pool: pg.Pool,
   row: {
@@ -67,14 +72,8 @@ export async function insertAgentAction(
     payload?: Record<string, unknown>;
   },
 ): Promise<void> {
-  await pool.query(
-    `INSERT INTO agent_actions (agent, action, match_id, market_id, payload)
-     VALUES ('bookmaker',$1,$2,$3,$4)`,
-    [
-      row.action,
-      row.matchId ?? null,
-      row.marketId ?? null,
-      JSON.stringify(row.payload ?? {}),
-    ],
-  );
+  await sharedInsertAction(pool, {
+    agent: 'bookmaker',
+    ...row,
+  });
 }

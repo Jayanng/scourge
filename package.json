@@ -14,7 +14,8 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "clean": "turbo run clean && rm -rf node_modules",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
+    "demo": "node scripts/demo-replay.mjs"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
@@ -22,6 +23,7 @@
     "@typescript-eslint/parser": "^8.63.0",
     "eslint": "^8.57.0",
     "prettier": "^3.3.0",
+    "tsx": "^4.19.0",
     "turbo": "^2.1.0",
     "typescript": "^5.5.4"
   },

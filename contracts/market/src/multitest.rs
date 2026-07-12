@@ -115,6 +115,9 @@ impl TestEnv {
     }
 
     fn settle(&mut self, who: &Addr, outcome: Outcome) -> Result<(), String> {
+        // Advance past close time so the TooEarly guard is satisfied.
+        self.app
+            .update_block(|b| b.time = cosmwasm_std::Timestamp::from_seconds(CLOSES_AT + 1));
         self.app
             .execute_contract(
                 who.clone(),

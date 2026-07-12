@@ -36,6 +36,9 @@ importers:
       prettier:
         specifier: ^3.3.0
         version: 3.9.5
+      tsx:
+        specifier: ^4.19.0
+        version: 4.23.0
       turbo:
         specifier: ^2.1.0
         version: 2.10.4
@@ -45,6 +48,9 @@ importers:
 
   apps/agents/bookmaker:
     dependencies:
+      '@kickoff/agent-db':
+        specifier: workspace:*
+        version: link:../../../packages/agent-db
       '@kickoff/inj-client':
         specifier: workspace:*
         version: link:../../../packages/inj-client
@@ -79,6 +85,9 @@ importers:
 
   apps/agents/oracle:
     dependencies:
+      '@kickoff/agent-db':
+        specifier: workspace:*
+        version: link:../../../packages/agent-db
       '@kickoff/shared-types':
         specifier: workspace:*
         version: link:../../../packages/shared-types
@@ -88,10 +97,22 @@ importers:
       dotenv:
         specifier: ^16.4.0
         version: 16.6.1
+      ioredis:
+        specifier: ^5.11.1
+        version: 5.11.1
+      pg:
+        specifier: ^8.22.0
+        version: 8.22.0
       pino:
         specifier: ^9.4.0
         version: 9.14.0
+      undici:
+        specifier: ^8.7.0
+        version: 8.7.0
     devDependencies:
+      '@types/pg':
+        specifier: ^8.20.0
+        version: 8.20.0
       tsx:
         specifier: ^4.19.0
         version: 4.23.0
@@ -101,6 +122,15 @@ importers:
 
   apps/agents/resolver:
     dependencies:
+      '@kickoff/agent-db':
+        specifier: workspace:*
+        version: link:../../../packages/agent-db
+      '@kickoff/agent-oracle':
+        specifier: workspace:*
+        version: link:../oracle
+      '@kickoff/inj-client':
+        specifier: workspace:*
+        version: link:../../../packages/inj-client
       '@kickoff/shared-types':
         specifier: workspace:*
         version: link:../../../packages/shared-types
@@ -110,10 +140,19 @@ importers:
       dotenv:
         specifier: ^16.4.0
         version: 16.6.1
+      ioredis:
+        specifier: ^5.11.1
+        version: 5.11.1
+      pg:
+        specifier: ^8.22.0
+        version: 8.22.0
       pino:
         specifier: ^9.4.0
         version: 9.14.0
     devDependencies:
+      '@types/pg':
+        specifier: ^8.20.0
+        version: 8.20.0
       tsx:
         specifier: ^4.19.0
         version: 4.23.0
@@ -123,6 +162,12 @@ importers:
 
   apps/agents/trader:
     dependencies:
+      '@kickoff/agent-db':
+        specifier: workspace:*
+        version: link:../../../packages/agent-db
+      '@kickoff/inj-client':
+        specifier: workspace:*
+        version: link:../../../packages/inj-client
       '@kickoff/shared-types':
         specifier: workspace:*
         version: link:../../../packages/shared-types
@@ -132,10 +177,19 @@ importers:
       dotenv:
         specifier: ^16.4.0
         version: 16.6.1
+      ioredis:
+        specifier: ^5.11.1
+        version: 5.11.1
+      pg:
+        specifier: ^8.22.0
+        version: 8.22.0
       pino:
         specifier: ^9.4.0
         version: 9.14.0
     devDependencies:
+      '@types/pg':
+        specifier: ^8.20.0
+        version: 8.20.0
       tsx:
         specifier: ^4.19.0
         version: 4.23.0
@@ -219,12 +273,27 @@ importers:
 
   apps/web:
     dependencies:
+      '@kickoff/inj-client':
+        specifier: workspace:*
+        version: link:../../packages/inj-client
       '@kickoff/shared-types':
         specifier: workspace:*
         version: link:../../packages/shared-types
+      '@modelcontextprotocol/sdk':
+        specifier: ^1.29.0
+        version: 1.29.0(zod@3.25.76)
+      dotenv:
+        specifier: ^16.4.0
+        version: 16.6.1
+      ioredis:
+        specifier: ^5.11.1
+        version: 5.11.1
       next:
         specifier: 14.2.15
         version: 14.2.15(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      pg:
+        specifier: ^8.22.0
+        version: 8.22.0
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -235,6 +304,9 @@ importers:
       '@types/node':
         specifier: ^20.14.0
         version: 20.19.43
+      '@types/pg':
+        specifier: ^8.20.0
+        version: 8.20.0
       '@types/react':
         specifier: ^18.3.0
         version: 18.3.31
@@ -253,6 +325,19 @@ importers:
       tailwindcss:
         specifier: 3.4.13
         version: 3.4.13
+      typescript:
+        specifier: ^5.5.4
+        version: 5.9.3
+
+  packages/agent-db:
+    dependencies:
+      pg:
+        specifier: ^8.22.0
+        version: 8.22.0
+    devDependencies:
+      '@types/pg':
+        specifier: ^8.20.0
+        version: 8.20.0
       typescript:
         specifier: ^5.5.4
         version: 5.9.3

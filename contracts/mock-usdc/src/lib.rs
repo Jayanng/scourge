@@ -5,7 +5,6 @@ use cosmwasm_std::{
     StdResult, Uint128, WasmMsg,
 };
 use cw2::set_contract_version;
-use cw20::Cw20ReceiveMsg;
 use cw_storage_plus::{Item, Map};
 
 const CONTRACT_NAME: &str = "crates.io:kickoff-mock-usdc";
@@ -154,6 +153,15 @@ pub fn execute(deps: DepsMut, _env: Env, info: MessageInfo, msg: ExecuteMsg) -> 
     }
 }
 
+/// Local Receive message (snake_case) so the market contract's
+/// `Receive(Cw20ReceiveMsg)` hook deserializes correctly.
+#[cw_serde]
+pub struct Cw20ReceiveMsg {
+    pub sender: String,
+    pub amount: Uint128,
+    pub msg: Binary,
+}
+
 /// Matches cw20 Receive execute on binary market
 #[cw_serde]
 enum ReceiveWrapper {
@@ -198,3 +206,6 @@ pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
         }
     }
 }
+
+#[cfg(test)]
+mod multitest;

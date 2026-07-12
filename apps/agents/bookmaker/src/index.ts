@@ -173,6 +173,7 @@ async function main() {
           closesAt: c.closesAt,
           contractAddress,
           txHash,
+          meta: c.meta,
           trigger: event,
         },
       });

@@ -4,6 +4,17 @@
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./sign": {
+      "types": "./dist/sign.d.ts",
+      "import": "./dist/sign.js"
+    }
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "dev": "tsx watch src/index.ts",
@@ -13,12 +24,17 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
+    "@kickoff/agent-db": "workspace:*",
     "@kickoff/shared-types": "workspace:*",
     "@kickoff/x402-client": "workspace:*",
     "dotenv": "^16.4.0",
-    "pino": "^9.4.0"
+    "ioredis": "^5.11.1",
+    "pg": "^8.22.0",
+    "pino": "^9.4.0",
+    "undici": "^8.7.0"
   },
   "devDependencies": {
+    "@types/pg": "^8.20.0",
     "tsx": "^4.19.0",
     "typescript": "^5.5.4"
   }
