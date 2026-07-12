@@ -19,6 +19,7 @@ import { createServer } from 'node:http';
 import pino from 'pino';
 import { Redis } from 'ioredis';
 import { createX402Client } from '@kickoff/x402-client';
+import { verifyX402Payment, setX402ResponseHeader } from '@kickoff/x402-client/middleware';
 import { createInjClient, type InjClient } from '@kickoff/inj-client';
 import type { OracleObservation } from '@kickoff/shared-types';
 import { Consensus } from './consensus.js';
@@ -172,39 +173,53 @@ async function main() {
     }
 
     if (req.method === 'POST' && (req.url ?? '').startsWith('/observe')) {
-      let body = '';
-      req.on('data', (c) => (body += c));
-      req.on('end', () => {
-        let o: OracleObservation;
-        try {
-          o = JSON.parse(body) as OracleObservation;
-        } catch {
-          res.writeHead(400, { 'content-type': 'application/json' });
-          res.end(JSON.stringify({ ok: false, error: 'invalid json' }));
-          return;
+      void (async () => {
+        // Verify x402 payment in live mode
+        if (X402_MODE === 'live') {
+          const ok = await verifyX402Payment(req, res, {
+            payTo: process.env.X402_PAY_TO ?? '',
+            network: process.env.X402_NETWORK ?? 'base-sepolia',
+            price: '$0.001',
+            description: 'Submit oracle observation',
+          });
+          if (!ok) return;
         }
-        const ingested = consensus.ingest(o);
-        if (!ingested) {
-          res.writeHead(401, { 'content-type': 'application/json' });
-          res.end(JSON.stringify({ ok: false, error: 'bad signature' }));
-          return;
-        }
-        const { consensus: c, verified, breakdown } = consensus.evaluate(o.market);
-        void trySettle(o.market).catch((e) =>
-          log.error({ err: String(e) }, 'settle failed'),
-        );
-        res.writeHead(200, { 'content-type': 'application/json' });
-        res.end(
-          JSON.stringify({
-            ok: true,
-            market: o.market,
-            verified,
-            breakdown,
-            consensus: c,
-            settled: consensus.get(o.market)?.settled ?? false,
-          }),
-        );
-      });
+
+        let body = '';
+        req.on('data', (c) => (body += c));
+        req.on('end', async () => {
+          let o: OracleObservation;
+          try {
+            o = JSON.parse(body) as OracleObservation;
+          } catch {
+            res.writeHead(400, { 'content-type': 'application/json' });
+            res.end(JSON.stringify({ ok: false, error: 'invalid json' }));
+            return;
+          }
+          const ingested = consensus.ingest(o);
+          if (!ingested) {
+            res.writeHead(401, { 'content-type': 'application/json' });
+            res.end(JSON.stringify({ ok: false, error: 'bad signature' }));
+            return;
+          }
+          const { consensus: c, verified, breakdown } = consensus.evaluate(o.market);
+          await trySettle(o.market).catch((e) =>
+            log.error({ err: String(e) }, 'settle failed'),
+          );
+          if (X402_MODE === 'live') setX402ResponseHeader(res);
+          res.writeHead(200, { 'content-type': 'application/json' });
+          res.end(
+            JSON.stringify({
+              ok: true,
+              market: o.market,
+              verified,
+              breakdown,
+              consensus: c,
+              settled: consensus.get(o.market)?.settled ?? false,
+            }),
+          );
+        });
+      })();
       return;
     }
 

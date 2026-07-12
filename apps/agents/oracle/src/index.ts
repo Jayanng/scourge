@@ -23,6 +23,7 @@ export { verifyObservation } from './sign.js';
 import pino from 'pino';
 import { Redis } from 'ioredis';
 import { createX402Client } from '@kickoff/x402-client';
+import { verifyX402Payment, setX402ResponseHeader } from '@kickoff/x402-client/middleware';
 import type { OracleObservation, Outcome, TrackedMarket } from '@kickoff/shared-types';
 import {
   applyEvent,
@@ -286,18 +287,31 @@ async function main() {
   // x402 reward sink: the Resolver POSTs here after paying an accurate oracle.
   const rewardServer = createServer((req, res) => {
     if (req.method === 'POST' && (req.url ?? '').startsWith('/reward')) {
-      let body = '';
-      req.on('data', (c) => (body += c));
-      req.on('end', () => {
-        try {
-          const r = JSON.parse(body) as { outcome?: string; market?: string };
-          log.info({ outcome: r.outcome, market: r.market }, 'reward received (x402 paid)');
-        } catch {
-          /* ignore */
+      void (async () => {
+        if (X402_MODE === 'live') {
+          const ok = await verifyX402Payment(req, res, {
+            payTo: process.env.X402_PAY_TO ?? '',
+            network: process.env.X402_NETWORK ?? 'base-sepolia',
+            price: '$0.001',
+            description: 'Oracle reward payment',
+          });
+          if (!ok) return;
         }
-        res.writeHead(200, { 'content-type': 'application/json' });
-        res.end(JSON.stringify({ ok: true, oracle: ORACLE_ID }));
-      });
+
+        let body = '';
+        req.on('data', (c) => (body += c));
+        req.on('end', () => {
+          try {
+            const r = JSON.parse(body) as { outcome?: string; market?: string };
+            log.info({ outcome: r.outcome, market: r.market }, 'reward received (x402 paid)');
+          } catch {
+            /* ignore */
+          }
+          if (X402_MODE === 'live') setX402ResponseHeader(res);
+          res.writeHead(200, { 'content-type': 'application/json' });
+          res.end(JSON.stringify({ ok: true, oracle: ORACLE_ID }));
+        });
+      })();
       return;
     }
     if (req.method === 'GET' && req.url === '/health') {

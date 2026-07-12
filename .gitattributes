@@ -1,7 +1,9 @@
 # Force correct language detection on GitHub
-.env.example linguist-language=DotEnv
+# .env.example KEY=VALUE syntax is misdetected as Makefile — exclude from stats
+.env.example linguist-detectable=false
 .nvmrc        linguist-detectable=false
 LICENSE       linguist-detectable=false
+pnpm-lock.yaml linguist-generated=true
 
 # TypeScript
 *.ts  linguist-language=TypeScript

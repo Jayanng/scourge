@@ -19,6 +19,7 @@ import { createServer } from 'node:http';
 import pino from 'pino';
 import { Redis } from 'ioredis';
 import { createX402Client } from '@kickoff/x402-client';
+import { verifyX402Payment, setX402ResponseHeader } from '@kickoff/x402-client/middleware';
 import { createInjClient, type InjClient } from '@kickoff/inj-client';
 import { decideBet, isAggressive, type Persona } from './strategy.js';
 import { createPool, ensureAgentActionsTable as ensureTables, insertAgentAction } from '@kickoff/agent-db';
@@ -208,17 +209,29 @@ async function main() {
 
   const server = createServer((req, res) => {
     if (req.method === 'GET' && (req.url ?? '').startsWith('/signals')) {
-      // x402-gated signal feed for other agents (demo surface).
-      res.writeHead(200, { 'content-type': 'application/json' });
-      res.end(
-        JSON.stringify({
-          ok: true,
-          trader: TRADER_ID,
-          persona: PERSONA,
-          aggressive: isAggressive(PERSONA),
-          consensus: [...consensusByMarket.entries()],
-        }),
-      );
+      void (async () => {
+        if (X402_MODE === 'live') {
+          const ok = await verifyX402Payment(req, res, {
+            payTo: process.env.X402_PAY_TO ?? '',
+            network: process.env.X402_NETWORK ?? 'base-sepolia',
+            price: '$0.10',
+            description: 'Trader signal subscription',
+          });
+          if (!ok) return;
+        }
+
+        if (X402_MODE === 'live') setX402ResponseHeader(res);
+        res.writeHead(200, { 'content-type': 'application/json' });
+        res.end(
+          JSON.stringify({
+            ok: true,
+            trader: TRADER_ID,
+            persona: PERSONA,
+            aggressive: isAggressive(PERSONA),
+            consensus: [...consensusByMarket.entries()],
+          }),
+        );
+      })();
       return;
     }
     if (req.method === 'GET' && req.url === '/health') {
